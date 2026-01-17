@@ -64,13 +64,13 @@ export default function Home() {
     <nav className="fixed top-0 w-full bg-kez-blue dark:bg-kez-dark text-white z-50 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         {/* Logo + Title */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center">
           <Image
             src="/images/logo.png"
             alt="Kez Logo"
-            width={40}
-            height={40}
-            className="object-contain"
+            width={50}
+            height={50}
+            className="mr-3"
           />
           <h1 className="font-extrabold text-xl">Kez Tutorial Services</h1>
         </div>
@@ -173,50 +173,121 @@ export default function Home() {
       {/* ABOUT */}
       <section
         id="about"
-        className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 bg-white dark:bg-kez-dark text-kez-dark dark:text-kez-light overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 bg-white overflow-hidden space-y-12"
       >
-        <div className="max-w-4xl text-center space-y-4">
-          <h2 className="text-3xl sm:text-4xl font-extrabold mb-2 text-kez-blue dark:text-kez-yellow">
-            Why Parents Choose Kez Kids ESL 💙
+        {/* Heading & Description */}
+        <div className="max-w-3xl text-center space-y-4 ">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-kez-blue mt-20">
+            Why Parents Choose Kez Tutorial Sevices 💙
           </h2>
-          <p className="text-lg sm:text-xl">
+          <p className="text-lg sm:text-xl text-kez-dark">
             Fun, safe, and interactive English lessons designed especially for children. 🧸
           </p>
         </div>
 
-        {/* Cloud bridging About → Programs */}
+        {/* Trial Class Video */}
+        <div className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-lg">
+          <video
+            src="/videos/aboutvid.mp4"
+            controls
+            autoPlay={false}
+            className="w-full h-auto rounded-3xl"
+          />
+        </div>
+
+        <p className="text-center max-w-3xl text-gray-700 text-base sm:text-lg mt-4">
+        Kids have fun learning English with stories, games, and interactive lessons. 🌟
+        </p>
+
+
+        {/* Pictures Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-5xl">
+          {["ads1.png", "ads2.png", "ads3.png"].map((img, idx) => (
+            <div key={idx} className="overflow-hidden rounded-2xl shadow-md">
+              <Image
+                src={`/images/${img}`}
+                alt={`Trial Class ${idx + 1}`}
+                width={300}
+                height={200}
+                className="object-cover w-full h-48 sm:h-56 md:h-64 hover:scale-105 transition-transform"
+              />
+            </div>
+          ))}
+        </div>
+
+      {/* Cloud bridging About → Programs */}
         <Cloud delay={2} />
       </section>
 
       {/* PROGRAMS */}
       <section
         id="programs"
-        className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 bg-kez-light dark:bg-kez-dark text-kez-dark dark:text-kez-light overflow-hidden"
+        className="relative min-h-screen bg-kez-light flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 overflow-hidden"
       >
-        <div className="max-w-5xl text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold mb-10 text-kez-blue dark:text-kez-yellow">
+        <div className="max-w-5xl w-full text-center">
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-10 text-kez-blue">
             Our Kids Programs 🧸
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {[{ title: "Kids Starter", desc: "Ages 4–6 • Songs & Games" },
-              { title: "Kids Explorer", desc: "Ages 7–9 • Speaking Fun" },
-              { title: "Kids Achiever", desc: "Ages 10–12 • Reading Confidence" }].map((item) => (
-              <motion.div
-                key={item.title}
-                whileHover={{ y: -10, rotate: -1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="bg-white dark:bg-kez-dark/80 p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-shadow"
-              >
-                <h3 className="font-bold text-xl mb-2 text-kez-blue dark:text-kez-yellow">{item.title}</h3>
-                <p>{item.desc}</p>
-              </motion.div>
-            ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Individual Classes */}
+            <motion.div
+              whileHover={{ y: -10 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow cursor-pointer"
+            >
+              <Image
+                src="/images/individual.jpg"
+                alt="Individual Class"
+                width={600}
+                height={400}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="font-bold text-xl mb-2 text-kez-blue">Individual Classes</h3>
+                <p className="text-kez-dark mb-2">
+                  One-on-one sessions tailored to your child’s pace. Perfect for focused learning and personal attention.
+                </p>
+                <ul className="list-disc list-inside text-kez-dark text-sm">
+                  <li>Age 4–12</li>
+                  <li>25–30 mins per session</li>
+                  <li>Customized lessons & games</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Group Classes */}
+            <motion.div
+              whileHover={{ y: -10 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow cursor-pointer"
+            >
+              <Image
+                src="/images/group.jpg"
+                alt="Group Class"
+                width={600}
+                height={400}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="font-bold text-xl mb-2 text-kez-blue">Group Classes</h3>
+                <p className="text-kez-dark mb-2">
+                  Fun peer-learning environment with small groups. Encourages interaction, speaking, and teamwork.
+                </p>
+                <ul className="list-disc list-inside text-kez-dark text-sm">
+                  <li>Age 4–12</li>
+                  <li>4–6 students per class</li>
+                  <li>Games, stories, and interactive activities</li>
+                </ul>
+              </div>
+            </motion.div>
           </div>
 
           {/* Cloud bridging Programs → Pricing */}
           <Cloud delay={4} />
         </div>
       </section>
+
 
       {/* PRICING */}
       <section
@@ -284,28 +355,31 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-10 text-left max-w-4xl mx-auto space-y-4 p-6 bg-kez-light/50 dark:bg-kez-dark/50 rounded-3xl shadow-lg"
+            className="mt-10 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 p-4"
           >
             {[
-              "Assessment: Diagnostic test for first-time enrollees to determine level.",
-              "Evaluation: Conducted after each class to track learning progress.",
-              "Review: Conducted before new lessons.",
-              "No unit exam & assignments: Learning is applied practically.",
-              "Study guides: Free worksheets, flashcards, and materials provided if needed.",
-              "Advantages: Flexible topics, micro/macro skills, free rescheduling, feedback from parents encouraged."
+              { text: "Diagnostic test for first-time enrollees to determine level.", emoji: "📝" },
+              { text: "Evaluation conducted after each class to track learning progress.", emoji: "📊" },
+              { text: "Review conducted before new lessons.", emoji: "🔄" },
+              { text: "No unit exam & assignments; learning is applied practically.", emoji: "🎯" },
+              { text: "Study guides: free worksheets, flashcards, and materials if needed.", emoji: "📚" },
+              { text: "Flexible topics, micro/macro skills, free rescheduling, feedback from parents encouraged.", emoji: "💡" },
             ].map((note, idx) => (
-              <motion.p
+              <motion.div
                 key={idx}
-                initial={{ x: idx % 2 === 0 ? -50 : 50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                initial={{ y: 30, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                whileHover={{ scale: 1.05, backgroundColor: "#FACC15", color: "#0F172A" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 * idx }}
-                className="text-gray-700 dark:text-gray-200 font-medium"
+                className="flex items-start gap-3 p-4 bg-kez-light/50 dark:bg-kez-dark/30 rounded-3xl shadow-md cursor-pointer hover:shadow-xl transition-all"
               >
-                {note}
-              </motion.p>
+                <span className="text-2xl">{note.emoji}</span>
+                <p className="text-gray-700 dark:text-gray-200 font-medium">{note.text}</p>
+              </motion.div>
             ))}
           </motion.div>
+
 
           {/* Cloud bridging Pricing → Contact */}
           <Cloud delay={6} />
