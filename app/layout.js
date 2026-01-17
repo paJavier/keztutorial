@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="ABC123xyz" />
+       <meta name="google-site-verification" content="RV-WI9BSY9nUty7BGPUnH5Q1spTrvR6eSbRKw3rn9pk" />
         {/* other head tags */}
       </head>
 
