@@ -12,7 +12,8 @@ module.exports = {
           blue: "#1E40AF",
           yellow: "#FACC15",
           light: "#EFF6FF",
-          dark: "#0F172A",
+          dark: "#0B1220",      // softer dark
+          cardDark: "#111827",  // slate-like
         },
       },
     },
