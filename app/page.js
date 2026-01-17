@@ -267,8 +267,8 @@ export default function Home() {
         <VideoCarousel />
 
         {/* Pictures Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-5xl">
-          {["ads1.png", "ads2.png", "ads3.png"].map((img, idx) => (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-5xl">
+         {["ads1.png", "ads2.png", "ads3.png", "ads4.png"].map((img, idx) => (
             <div key={idx} className="overflow-hidden rounded-2xl shadow-md">
               <Image
                 src={`/images/${img}`}
@@ -302,7 +302,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-4xl font-extrabold mb-14 text-kez-blue mt-8"
+            className="text-3xl sm:text-4xl font-extrabold mb-14 text-kez-blue mt-4"
           >
             Our Programs 🧸
           </motion.h2>
