@@ -5,13 +5,47 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import ContactForm from "./component/ContactForm";
 import VideoCarousel from "./component/VideoCarousel";
+import Booking from "./component/Booking";
+import ImageModal from "./component/ImageModal";
+import Modal from "react-modal";  // <-- import Modal here
+
 
 
 export default function Home() {
   // Theme state
   const [darkMode, setDarkMode] = useState(false);
 
-  // Mobile menu state
+const [certModalOpen, setCertModalOpen] = useState(false);
+const [currentCertIdx, setCurrentCertIdx] = useState(0);
+
+
+  // Certificates for teacher
+  const certificates = [
+    "/images/cert1.png",
+    "/images/cert2.png",
+    "/images/cert3.png",
+    "/images/cert4.png",
+    "/images/cert5.png",
+    "/images/cert6.png",
+    "/images/cert7.png",
+    "/images/cert8.png",
+    "/images/cert9.png",
+    "/images/cert10.png",
+    "/images/cert11.png",
+    "/images/cert12.png",
+
+  ];
+
+
+
+  const images = [
+    "/images/ads1.png",
+    "/images/ads2.png",
+    "/images/ads3.png",
+    "/images/ads4.png"
+  ];
+
+
   const [menuOpen, setMenuOpen] = useState(false); 
   // Persist theme in localStorage
   useEffect(() => {
@@ -97,6 +131,7 @@ export default function Home() {
     );
   };
 
+
     // State for selected currency
   const [currency, setCurrency] = useState("TWD");
 
@@ -161,6 +196,7 @@ export default function Home() {
           <a href="#about" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">About</a>
           <a href="#programs" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Programs</a>
           <a href="#pricing" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Packages</a>
+          <a href="#booking" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Booking</a>
           <a href="#contact" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Contact</a>
 
           {/* Dark/Light Toggle */}
@@ -237,7 +273,7 @@ export default function Home() {
             Learning English through games, stories, and smiles! 🌟
           </p>
           <motion.a
-            href="#contact"
+            href="#booking"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className="bg-kez-yellow dark:bg-kez-blue text-kez-dark dark:text-kez-light px-8 py-4 rounded-full font-bold inline-block shadow-lg hover:shadow-2xl transition-all"
@@ -252,40 +288,166 @@ export default function Home() {
 
       {/* ABOUT */}
       <section
-        id="about"
-        className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12
-                  bg-white dark:bg-kez-dark text-kez-dark dark:text-kez-light overflow-hidden"
->
-        {/* Heading & Description */}
-        <div className="max-w-3xl text-center space-y-4 ">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-kez-blue mt-20">
-            Why Parents Choose Kez Tutorial Sevices 💙
-          </h2>
- 
-        </div>
+          id="about"
+          className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12
+                    bg-white dark:bg-kez-dark text-kez-dark dark:text-kez-light overflow-hidden"
+      >
+          {/* Heading & Description */}
+          <div className="max-w-3xl text-center space-y-4 ">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-kez-blue mt-20">
+              Why Parents Choose Kez Tutorial Sevices 💙
+            </h2>
+          </div>
 
-        <VideoCarousel />
-
-        {/* Pictures Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-5xl">
-         {["ads1.png", "ads2.png", "ads3.png", "ads4.png"].map((img, idx) => (
-            <div key={idx} className="overflow-hidden rounded-2xl shadow-md">
-              <Image
-                src={`/images/${img}`}
-                alt={`Trial Class ${idx + 1}`}
-                width={300}
-                height={200}
-                className="object-cover w-full h-48 sm:h-56 md:h-64 hover:scale-105 transition-transform"
-              />
-            </div>
-          ))}
-        </div>
-
-      {/* Cloud bridging About → Programs */}
-        <Cloud delay={2} />
+          <VideoCarousel />
+          <ImageModal images={images} />
+          {/* Cloud bridging About → Programs */}
+          <Cloud delay={2} />
       </section>
 
-      {/* PROGRAMS */}
+      {/* ABOUT TEACHER */}
+
+      <section
+        id="about-teacher"
+        className="relative min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 py-12 bg-white dark:bg-kez-dark flex items-center justify-center overflow-hidden"
+      >
+        {/* Main Grid */}
+        <div className="relative z-10 max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full">
+          {/* Left: Certificates */}
+          <div className="flex flex-col items-center justify-center">
+            <h2 className="text-3xl font-extrabold mb-6 text-kez-blue dark:text-kez-yellow text-center">
+              Certificates 🎓
+            </h2>
+
+            <div className="relative w-full sm:w-4/5 max-w-md">
+              <button
+                onClick={() =>
+                  setCurrentCertIdx((currentCertIdx - 1 + certificates.length) % certificates.length)
+                }
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 text-4xl font-bold bg-black bg-opacity-30 text-white rounded-full p-3 hover:bg-opacity-50 z-10"
+              >
+                &#8249;
+              </button>
+
+              <div
+                className="cursor-pointer rounded-2xl overflow-hidden shadow-xl"
+                onClick={() => setCertModalOpen(true)}
+              >
+                <Image
+                  src={certificates[currentCertIdx]}
+                  alt={`Certificate ${currentCertIdx + 1}`}
+                  width={800}
+                  height={600}
+                  className="object-contain w-full h-[500px] sm:h-[600px] md:h-[700px] bg-white"
+                />
+              </div>
+
+              <button
+                onClick={() =>
+                  setCurrentCertIdx((currentCertIdx + 1) % certificates.length)
+                }
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 text-4xl font-bold bg-black bg-opacity-30 text-white rounded-full p-3 hover:bg-opacity-50 z-10"
+              >
+                &#8250;
+              </button>
+            </div>
+
+            <div className="flex justify-center mt-4 space-x-2">
+              {certificates.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`w-4 h-4 rounded-full ${
+                    idx === currentCertIdx ? "bg-kez-blue" : "bg-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Teacher Info */}
+          <div className="flex flex-col justify-center items-center gap-6 h-full">
+            {/* Profile Picture */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="mb-4"
+            >
+              <Image
+                src="/images/prof.jpg"
+                alt="Laurens Pieter Jakobus G. Nobels"
+                width={250}
+                height={250}
+                className="rounded-full shadow-2xl border-4 border-kez-blue dark:border-kez-yellow object-cover"
+              />
+            </motion.div>
+
+            {/* Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center space-y-2 max-w-md"
+            >
+              <h3 className="text-3xl font-extrabold text-kez-blue dark:text-kez-yellow">
+                Laurens Pieter Jakobus G. Nobels
+              </h3>
+              <p className="text-lg font-semibold text-kez-dark dark:text-kez-light">
+                Bachelor of Education, Major in English
+              </p>
+              <p className="text-lg text-kez-dark dark:text-kez-light">
+                Ateneo de Davao University
+              </p>
+              <p className="text-lg text-kez-dark dark:text-kez-light">
+                6 years of teaching experience
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Certificate Modal */}
+        <Modal
+          isOpen={certModalOpen}
+          onRequestClose={() => setCertModalOpen(false)}
+          className="fixed inset-0 flex items-center justify-center outline-none z-50"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-80 z-40"
+          ariaHideApp={false}
+        >
+          <div className="relative w-full h-full flex items-center justify-center p-4">
+            <button
+              onClick={() => setCertModalOpen(false)}
+              className="absolute top-4 right-4 text-white text-4xl font-bold z-50"
+            >
+              &times;
+            </button>
+            <button
+              onClick={() =>
+                setCurrentCertIdx((currentCertIdx - 1 + certificates.length) % certificates.length)
+              }
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-5xl font-bold bg-black bg-opacity-40 text-white rounded-full p-4 hover:bg-opacity-60 z-50"
+            >
+              &#8249;
+            </button>
+            <button
+              onClick={() =>
+                setCurrentCertIdx((currentCertIdx + 1) % certificates.length)
+              }
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-5xl font-bold bg-black bg-opacity-40 text-white rounded-full p-4 hover:bg-opacity-60 z-50"
+            >
+              &#8250;
+            </button>
+            <div className="relative w-full max-w-[90vw] h-[90vh]">
+              <Image
+                src={certificates[currentCertIdx]}
+                alt={`Certificate ${currentCertIdx + 1}`}
+                fill
+                className="object-contain rounded-2xl shadow-xl"
+              />
+            </div>
+          </div>
+        </Modal>
+      </section>
+
+
       <section
         id="programs"
         className="relative min-h-screen
@@ -530,7 +692,7 @@ export default function Home() {
           </motion.div>
 
 
-          {/* Cloud bridging Pricing → Contact */}
+         
           <Cloud delay={6} />
         </div>
       </section>
@@ -598,11 +760,80 @@ export default function Home() {
           >
           </motion.p>
         </div>
-
-        {/* Optional Clouds or Mascot */}
+       {/* Optional Clouds or Mascot */}
         <Cloud delay={1} scale={0.6} />
       </section>
+
+      {/* REWARD TIERS & PRIVILEGES */}
+      <section
+        id="reward-tiers"
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 bg-kez-light dark:bg-kez-dark text-kez-dark dark:text-kez-light overflow-hidden"
+      >
+        <div className="max-w-5xl w-full text-center">
+          {/* Section Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl sm:text-4xl font-extrabold mb-8 text-kez-blue dark:text-kez-yellow"
+          >
+            Reward Tiers & Privileges 🏆
+          </motion.h2>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg sm:text-xl mb-12 max-w-3xl mx-auto"
+          >
+            This program is our way of honoring families who grow with us and trust Kez Tutorial Service in their child’s long-term learning journey.
+          </motion.p>
+
+          {/* Tiers Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {[
+              { level: "Level I", requirement: "Accumulate 90 classes or more", benefit: "10% discount on your next purchase", color: "bg-kez-yellow/20 dark:bg-kez-yellow/10 border-kez-yellow" },
+              { level: "Level II", requirement: "Accumulate 180 classes or more", benefit: "15% discount on your next purchase", color: "bg-kez-blue/10 dark:bg-kez-blue/20 border-kez-blue" },
+              { level: "Level III", requirement: "Accumulate 280 classes or more", benefit: "20% discount on your next purchase", color: "bg-kez-yellow/20 dark:bg-kez-yellow/10 border-kez-yellow" },
+              { level: "Level IV", requirement: "Accumulate 380 classes or more", benefit: "25% discount on your next purchase", color: "bg-kez-blue/10 dark:bg-kez-blue/20 border-kez-blue" },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 * idx }}
+                className={`border-4 rounded-3xl p-6 shadow-md hover:shadow-2xl transition-shadow ${item.color}`}
+              >
+                <h3 className="font-bold text-xl mb-2 text-kez-blue dark:text-kez-yellow">
+                  {item.level}
+                </h3>
+                <p className="text-kez-dark dark:text-kez-light font-semibold">{item.requirement}</p>
+                <p className="text-kez-dark dark:text-kez-light">{item.benefit}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      <Cloud delay={1} scale={0.6} />
+      </section>
+
      
+     {/* BOOKING */}
+        <section
+          id="booking"
+          className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-16
+                    bg-white dark:bg-kez-dark text-kez-dark dark:text-kez-light overflow-hidden"
+        >
+          <div className="max-w-6xl w-full">
+            <Booking />
+          </div>
+
+          {/* Cloud bridging Booking → Contact */}
+          <Cloud delay={8} />
+        </section>
 
       {/* CONTACT */}
       <section
