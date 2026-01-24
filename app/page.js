@@ -8,6 +8,8 @@ import VideoCarousel from "./component/VideoCarousel";
 import Booking from "./component/Booking";
 import ImageModal from "./component/ImageModal";
 import Modal from "react-modal";  
+import AvailableSlots from "./component/AvailableSlots";
+
 
 
 
@@ -893,6 +895,8 @@ const toggleTheme = () => {
           <Cloud delay={8} />
         </section>
 
+      <AvailableSlots />
+      
       {/* CONTACT */}
       <section
         id="contact"
