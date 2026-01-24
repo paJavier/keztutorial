@@ -403,47 +403,67 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
           </div>
         </div>
 
-        {/* Certificate Modal */}
-        <Modal
-          isOpen={certModalOpen}
-          onRequestClose={() => setCertModalOpen(false)}
-          className="fixed inset-0 flex items-center justify-center outline-none z-50"
-          overlayClassName="fixed inset-0 bg-black bg-opacity-80 z-40"
-          ariaHideApp={false}
-        >
-          <div className="relative w-full h-full flex items-center justify-center p-4">
-            <button
-              onClick={() => setCertModalOpen(false)}
-              className="absolute top-4 right-4 text-white text-4xl font-bold z-50"
-            >
-              &times;
-            </button>
-            <button
-              onClick={() =>
-                setCurrentCertIdx((currentCertIdx - 1 + certificates.length) % certificates.length)
-              }
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-5xl font-bold bg-black bg-opacity-40 text-white rounded-full p-4 hover:bg-opacity-60 z-50"
-            >
-              &#8249;
-            </button>
-            <button
-              onClick={() =>
-                setCurrentCertIdx((currentCertIdx + 1) % certificates.length)
-              }
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-5xl font-bold bg-black bg-opacity-40 text-white rounded-full p-4 hover:bg-opacity-60 z-50"
-            >
-              &#8250;
-            </button>
-            <div className="relative w-full max-w-[90vw] h-[90vh]">
-              <Image
-                src={certificates[currentCertIdx]}
-                alt={`Certificate ${currentCertIdx + 1}`}
-                fill
-                className="object-contain rounded-2xl shadow-xl"
-              />
-            </div>
-          </div>
-        </Modal>
+{/* Certificate Modal */}
+<Modal
+  isOpen={certModalOpen}
+  onRequestClose={() => setCertModalOpen(false)}
+  className="fixed inset-0 flex items-start md:items-center justify-center outline-none z-50 pt-16 md:pt-0"
+  overlayClassName="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-40"
+  ariaHideApp={false}
+>
+  <div className="relative w-full max-w-5xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl flex flex-col items-center p-6
+                  max-h-[95vh] md:max-h-[95vh] overflow-auto">
+    
+    {/* Header */}
+    <div className="w-full flex justify-between items-center mb-4 flex-shrink-0">
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
+        Certificate {currentCertIdx + 1} of {certificates.length}
+      </h2>
+      <button
+        onClick={() => setCertModalOpen(false)}
+        className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-3xl font-bold transition"
+      >
+        &times;
+      </button>
+    </div>
+
+    {/* Image + Arrows */}
+    <div className="relative w-full flex-1 flex items-center justify-center">
+
+      {/* Left Arrow */}
+      <button
+        onClick={() =>
+          setCurrentCertIdx((currentCertIdx - 1 + certificates.length) % certificates.length)
+        }
+        className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white text-4xl md:text-5xl rounded-full p-3 md:p-4 transition z-50"
+      >
+        &#8249;
+      </button>
+
+      {/* Certificate Image Wrapper */}
+      <div className="relative w-auto max-w-[90%] flex items-center justify-center rounded-2xl shadow-xl ring-4 ring-blue-400/70 hover:ring-blue-500/90">
+        <Image
+          src={certificates[currentCertIdx]}
+          alt={`Certificate ${currentCertIdx + 1}`}
+          width={1200}
+          height={1600}
+          className="object-contain max-h-[85vh] md:max-h-[90vh]"
+        />
+      </div>
+
+      {/* Right Arrow */}
+      <button
+        onClick={() =>
+          setCurrentCertIdx((currentCertIdx + 1) % certificates.length)
+        }
+        className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white text-4xl md:text-5xl rounded-full p-3 md:p-4 transition z-50"
+      >
+        &#8250;
+      </button>
+
+    </div>
+  </div>
+</Modal>
       </section>
 
 
