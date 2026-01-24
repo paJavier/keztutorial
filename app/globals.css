@@ -15,12 +15,11 @@ body {
   font-family: 'Poppins', system-ui, sans-serif;
 }
 
-/* Calendly custom styling */
 .calendly-wrapper {
   max-width: 600px;       
   margin: 0 auto;          
   padding: 2rem;
-  background-color: #EFF6FF; /* light blue from your site */
+  background-color: #EFF6FF; 
   border-radius: 16px;     
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: 'Poppins', system-ui, sans-serif;

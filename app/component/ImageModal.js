@@ -29,7 +29,7 @@ export default function ImageModal({ images }) {
             onClick={() => openModal(idx)}
           >
             <Image
-              src={img} // Use the array value directly
+              src={img} 
               alt={`Image ${idx + 1}`}
               width={300}
               height={200}

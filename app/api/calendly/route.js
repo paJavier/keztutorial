@@ -4,7 +4,7 @@ export async function GET() {
     const token = process.env.CALENDLY_API_KEY;
     if (!token) throw new Error("Missing CALENDLY_API_KEY");
 
-    // 1️⃣ Get user URI
+    // user URI
     const userRes = await fetch("https://api.calendly.com/users/me", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -18,7 +18,7 @@ export async function GET() {
       throw new Error("User URI not found");
     }
 
-    // 2️⃣ Fetch scheduled events
+    // fetch scheduled events
     const eventsRes = await fetch(
       `https://api.calendly.com/scheduled_events?user=${encodeURIComponent(userUri)}`,
       {

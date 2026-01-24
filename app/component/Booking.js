@@ -29,7 +29,6 @@ export default function Booking() {
         </motion.span>
       </motion.h1>
 
-      {/* Subtitle / Phrase */}
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
