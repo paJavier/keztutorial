@@ -21,17 +21,17 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
 
   // Certificates for teacher
   const certificates = [
-    "/images/cert1.PNG",
+    "/images/cert1.png",
     "/images/cert2.png",
     "/images/cert3.png",
     "/images/cert4.png",
     "/images/cert5.png",
     "/images/cert6.png",
     "/images/cert7.png",
-    "/images/cert8.PNG",
-    "/images/cert9.PNG",
+    "/images/cert8.png",
+    "/images/cert9.png",
     "/images/cert10.png",
-    "/images/cert11.PNG",
+    "/images/cert11.png",
     "/images/cert12.png",
 
   ];
