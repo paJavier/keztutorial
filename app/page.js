@@ -42,11 +42,31 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
     "/images/ads4.png"
   ];
 
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef(null); 
-
-  useEffect(() => {
+const modalRef = useRef(null);
+useEffect(() => {
   const handleClickOutside = (event) => {
+    if (certModalOpen && modalRef.current && !modalRef.current.contains(event.target)) {
+      setCertModalOpen(false);
+    }
+  };
+
+  if (certModalOpen) {
+    document.addEventListener("mousedown", handleClickOutside);
+  } else {
+    document.removeEventListener("mousedown", handleClickOutside);
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [certModalOpen]);
+
+
+const [menuOpen, setMenuOpen] = useState(false);
+const menuRef = useRef(null); 
+
+useEffect(() => {
+const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setMenuOpen(false);
     }
@@ -71,7 +91,7 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
     }
   }, []);
 
-  const toggleTheme = () => {
+const toggleTheme = () => {
     setDarkMode(!darkMode);
     if (!darkMode) {
       document.documentElement.classList.add("dark");
@@ -420,67 +440,69 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
           </div>
         </div>
 
-{/* Certificate Modal */}
-<Modal
-  isOpen={certModalOpen}
-  onRequestClose={() => setCertModalOpen(false)}
-  className="fixed inset-0 flex items-start md:items-center justify-center outline-none z-50 pt-16 md:pt-0"
-  overlayClassName="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-40"
-  ariaHideApp={false}
->
-  <div className="relative w-full max-w-5xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl flex flex-col items-center p-6
-                  max-h-[95vh] md:max-h-[95vh] overflow-auto">
-    
-    {/* Header */}
-    <div className="w-full flex justify-between items-center mb-4 flex-shrink-0">
-      <h2 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
-        Certificate {currentCertIdx + 1} of {certificates.length}
-      </h2>
-      <button
-        onClick={() => setCertModalOpen(false)}
-        className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-3xl font-bold transition"
-      >
-        &times;
-      </button>
-    </div>
+        {/* Certificate Modal */}
+        <Modal
+          isOpen={certModalOpen}
+          onRequestClose={() => setCertModalOpen(false)}
+          className="fixed inset-0 flex items-start md:items-center justify-center outline-none z-50 pt-16 md:pt-0"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-40"
+          ariaHideApp={false}
+        >
+          <div
+          ref={modalRef} 
+          className="relative w-full max-w-5xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl flex flex-col items-center p-6
+                          max-h-[95vh] md:max-h-[95vh] overflow-auto">
+            
+            {/* Header */}
+            <div className="w-full flex justify-between items-center mb-4 flex-shrink-0">
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">
+                Certificate {currentCertIdx + 1} of {certificates.length}
+              </h2>
+              <button
+                onClick={() => setCertModalOpen(false)}
+                className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-3xl font-bold transition"
+              >
+                &times;
+              </button>
+            </div>
 
-    {/* Image + Arrows */}
-    <div className="relative w-full flex-1 flex items-center justify-center">
+            {/* Image + Arrows */}
+            <div className="relative w-full flex-1 flex items-center justify-center">
 
-      {/* Left Arrow */}
-      <button
-        onClick={() =>
-          setCurrentCertIdx((currentCertIdx - 1 + certificates.length) % certificates.length)
-        }
-        className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white text-4xl md:text-5xl rounded-full p-3 md:p-4 transition z-50"
-      >
-        &#8249;
-      </button>
+              {/* Left Arrow */}
+              <button
+                onClick={() =>
+                  setCurrentCertIdx((currentCertIdx - 1 + certificates.length) % certificates.length)
+                }
+                className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white text-4xl md:text-5xl rounded-full p-3 md:p-4 transition z-50"
+              >
+                &#8249;
+              </button>
 
-      {/* Certificate Image Wrapper */}
-      <div className="relative w-auto max-w-[90%] flex items-center justify-center rounded-2xl shadow-xl ring-4 ring-blue-400/70 hover:ring-blue-500/90">
-        <Image
-          src={certificates[currentCertIdx]}
-          alt={`Certificate ${currentCertIdx + 1}`}
-          width={1200}
-          height={1600}
-          className="object-contain max-h-[85vh] md:max-h-[90vh]"
-        />
-      </div>
+              {/* Certificate Image Wrapper */}
+              <div className="relative w-auto max-w-[90%] flex items-center justify-center rounded-2xl shadow-xl ring-4 ring-blue-400/70 hover:ring-blue-500/90">
+                <Image
+                  src={certificates[currentCertIdx]}
+                  alt={`Certificate ${currentCertIdx + 1}`}
+                  width={1200}
+                  height={1600}
+                  className="object-contain max-h-[85vh] md:max-h-[90vh]"
+                />
+              </div>
 
-      {/* Right Arrow */}
-      <button
-        onClick={() =>
-          setCurrentCertIdx((currentCertIdx + 1) % certificates.length)
-        }
-        className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white text-4xl md:text-5xl rounded-full p-3 md:p-4 transition z-50"
-      >
-        &#8250;
-      </button>
+              {/* Right Arrow */}
+              <button
+                onClick={() =>
+                  setCurrentCertIdx((currentCertIdx + 1) % certificates.length)
+                }
+                className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white text-4xl md:text-5xl rounded-full p-3 md:p-4 transition z-50"
+              >
+                &#8250;
+              </button>
 
-    </div>
-  </div>
-</Modal>
+            </div>
+          </div>
+        </Modal>
       </section>
 
 
