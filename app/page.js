@@ -1,23 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import ContactForm from "./component/ContactForm";
 import VideoCarousel from "./component/VideoCarousel";
 import Booking from "./component/Booking";
 import ImageModal from "./component/ImageModal";
-import Modal from "react-modal";  // <-- import Modal here
+import Modal from "react-modal";  
 
 
 
 export default function Home() {
-  // Theme state
-  const [darkMode, setDarkMode] = useState(false);
+  
+const [darkMode, setDarkMode] = useState(false); // Theme state
 
 const [certModalOpen, setCertModalOpen] = useState(false);
 const [currentCertIdx, setCurrentCertIdx] = useState(0);
-
 
   // Certificates for teacher
   const certificates = [
@@ -36,8 +35,6 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
 
   ];
 
-
-
   const images = [
     "/images/ads1.png",
     "/images/ads2.png",
@@ -45,9 +42,27 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
     "/images/ads4.png"
   ];
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null); 
 
-  const [menuOpen, setMenuOpen] = useState(false); 
-  // Persist theme in localStorage
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMenuOpen(false);
+    }
+  };
+
+  if (menuOpen) {
+    document.addEventListener("mousedown", handleClickOutside);
+  } else {
+    document.removeEventListener("mousedown", handleClickOutside);
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [menuOpen]);
+
   useEffect(() => {
     const saved = localStorage.getItem("theme");
     if (saved === "dark") {
@@ -229,16 +244,18 @@ const [currentCertIdx, setCurrentCertIdx] = useState(0);
       {/* Mobile Menu */}
       {menuOpen && (
         <motion.div
+          ref={menuRef}   
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           className="md:hidden bg-kez-blue dark:bg-kez-dark/95 text-white font-semibold flex flex-col items-center space-y-4 py-4"
         >
-          <a href="#home" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Home</a>
-          <a href="#about" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">About</a>
-          <a href="#programs" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Programs</a>
-          <a href="#pricing" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Pricing</a>
-          <a href="#contact" className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Contact</a>
+          <a href="#home" onClick={() => setMenuOpen(false)} className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Home</a>
+          <a href="#about" onClick={() => setMenuOpen(false)} className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">About</a>
+          <a href="#programs" onClick={() => setMenuOpen(false)} className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Programs</a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)} className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Pricing</a>
+          <a href="#booking" onClick={() => setMenuOpen(false)} className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Booking</a>          
+          <a href="#contact" onClick={() => setMenuOpen(false)} className="hover:text-kez-yellow dark:hover:text-kez-yellow transition-colors">Contact</a>
         </motion.div>
       )}
     </nav>
