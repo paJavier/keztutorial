@@ -168,27 +168,25 @@ const toggleTheme = () => {
   };
 
 
-    // State for selected currency
   const [currency, setCurrency] = useState("TWD");
 
-  // Conversion rates (example rates, you can update them)
-  const conversionRates = {
-    TWD: 1,
-    JPY: 4.1, // 1 TWD ≈ 4.1 JPY
-    CNY: 0.23 // 1 TWD ≈ 0.23 CNY
-  };
-
-  // Pricing data in TWD
+  // Pricing data in PH Peso
   const pricing = [
     { title: "Free Trial", price: 1 },
-    { title: "1 Class", price: 243, peer: 364.5 },
-    { title: "10 Classes", price: 2600, peer: 3900 },
-    { title: "15 Classes", price: 4000, peer: 6000 },
-    { title: "25 Classes", price: 6765, peer: 10147.5 },
-    { title: "50 Classes", price: 13000, peer: 19500 },
-    { title: "100 Classes", price: 25350, peer: 38025 },
-    { title: "150 Classes", price: 37750, peer: 56625 },
+    { title: "1 Class", price: 450.43, peer: 675.75 },
+    { title: "10 Classes", price: 4822.03, peer: 7233.05 },
+    { title: "15 Classes", price: 7325.78, peer: 10988.65 },
+    { title: "25 Classes", price: 12240.55, peer: 18360.825 },
+    { title: "50 Classes", price: 24110.17, peer: 36165.25 },
+    { title: "100 Classes", price: 47014.83, peer: 70522.245 },
+    { title: "150 Classes", price: 70000.00, peer: 105000.00 },
   ];
+
+  const conversionRates = {
+    TWD:0.54,
+    JPY: 2.67,
+    CNY: 0.12,
+  };
 
   // Function to format numbers with currency
   const formatPrice = (amount) => {
@@ -199,7 +197,6 @@ const toggleTheme = () => {
     return `${symbol} ${Math.round(amount * conversionRates[currency]).toLocaleString()}`;
   };
 
-   
 
   return (
   <main className="bg-kez-light dark:bg-kez-dark text-kez-dark dark:text-kez-light relative overflow-hidden font-poppins">
