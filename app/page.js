@@ -174,12 +174,12 @@ const toggleTheme = () => {
   const pricing = [
     { title: "Free Trial", price: 1 },
     { title: "1 Class", price: 450.43, peer: 675.75 },
-    { title: "10 Classes", price: 4822.03, peer: 7233.05 },
-    { title: "15 Classes", price: 7325.78, peer: 10988.65 },
-    { title: "25 Classes", price: 12240.55, peer: 18360.825 },
-    { title: "50 Classes", price: 24110.17, peer: 36165.25 },
-    { title: "100 Classes", price: 47014.83, peer: 70522.245 },
-    { title: "150 Classes", price: 70000.00, peer: 105000.00 },
+    { title: "10 Classes + 2 Free Classes", price: 4822.03, peer: 7233.05 },
+    { title: "15 Classes + 4 Free Classes", price: 7325.78, peer: 10988.65 },
+    { title: "25 Classes + 8 Free Classes", price: 12240.55, peer: 18360.825 },
+    { title: "50 Classes + 15 Free Classes", price: 24110.17, peer: 36165.25 },
+    { title: "100 Classe + 30 Free Classess", price: 47014.83, peer: 70522.245 },
+    { title: "150 Classes + 50 Free Classes", price: 70000.00, peer: 105000.00 },
   ];
 
   const conversionRates = {
